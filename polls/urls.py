@@ -1,6 +1,7 @@
 from django.urls import path
 
-from . import views
+#importar da pasta atual o arquivo views.py
+from polls import views
 
 urlpatterns = [
     path('', views.index, name="index"),

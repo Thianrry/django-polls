@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from polls.models import Question
+from polls.models import Question, Choice
 
 #view index
 def index(request):
-    return HttpResponse("Olá, seja bem vindo a enquete")
+    context = {'titulo': 'Página Principal'}
+    return render(request, 'home.html', context)
 
 def sobre(request):
-    return HttpResponse("Este é um app de enquete")
+    return HttpResponse("Este é um app de enquete!")
 
 def exibe_questao(request, question_id):
     questao = Question.objects.get(id=question_id)
