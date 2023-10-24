@@ -6,12 +6,15 @@ from django.urls import reverse_lazy
 from polls.models import Question
 from django.views.generic import DetailView, ListView, TemplateView
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 #view index
 def index(request):
     context = {'titulo': 'Página Principal'}
     return render(request, 'home.html', context)
 
+@login_required # controle de acesso usando o decorador de função
 def sobre(request):
     return HttpResponse("Este é um app de enquete!")
 
@@ -46,7 +49,7 @@ class QuestionUpdateView(UpdateView):
 
         return context
 
-class QuestionDeleteView(DeleteView):
+class QuestionDeleteView(LoginRequiredMixin, DeleteView):
     model = Question
     template_name = 'polls/question_confirm_delete_form.html'
     success_url = reverse_lazy('polls_all')
